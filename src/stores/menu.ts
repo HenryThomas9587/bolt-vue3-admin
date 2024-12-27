@@ -47,6 +47,13 @@ export const useMenuStore = defineStore('menu', () => {
       ]
     },
     {
+      id: 'order-lists',
+      title: 'Order Lists',
+      icon: ListBulletIcon,
+      path: '/order-lists',
+      component: () => import('@/views/OrderList.vue')
+    },
+    {
       id: 'favorites',
       title: 'Favorites',
       icon: HeartIcon,
@@ -57,13 +64,6 @@ export const useMenuStore = defineStore('menu', () => {
       title: 'Inbox',
       icon: InboxIcon,
       path: '/inbox'
-    },
-    {
-      id: 'orders',
-      title: 'Orders',
-      icon: ClockIcon,
-      path: '/orders',
-      component: () => import('@/views/Orders.vue')
     },
     {
       id: 'calendar',

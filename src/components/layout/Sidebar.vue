@@ -33,24 +33,23 @@ const isExpanded = (menuId: string): boolean => {
 
 <template>
   <aside
-    class="relative flex flex-col h-screen bg-white border-r border-gray-200 transition-all duration-300"
-    :class="{ 'w-20': menuStore.collapsed, 'w-64': !menuStore.collapsed }"
+    class="relative flex flex-col h-screen bg-white transition-all duration-300"
+    :class="{ 'w-[72px]': menuStore.collapsed, 'w-64': !menuStore.collapsed }"
   >
-    <div class="p-6 flex items-center justify-between">
-      <div class="flex items-center space-x-2" :class="{ 'justify-center': menuStore.collapsed }">
-        <img src="/vite.svg" alt="Logo" class="h-8 w-8" />
-        <h1 v-if="!menuStore.collapsed" class="text-xl font-bold text-gray-900">DashStack</h1>
-      </div>
+    <div class="p-4 flex items-center" :class="{ 'justify-center': menuStore.collapsed }">
+      <img src="/vite.svg" alt="Logo" class="h-8 w-8" />
+      <h1 v-if="!menuStore.collapsed" class="text-xl font-bold text-gray-900 ml-3">DashStack</h1>
       <button
-        class="p-2 rounded-lg hover:bg-gray-100"
+        v-if="!menuStore.collapsed"
+        class="ml-auto p-2 rounded-lg hover:bg-gray-100"
         @click="menuStore.toggleCollapsed"
       >
         <Bars3Icon class="h-5 w-5 text-gray-500" />
       </button>
     </div>
 
-    <div class="flex-1 overflow-y-auto scrollbar-thin">
-      <nav class="px-4 space-y-1">
+    <div class="flex-1 overflow-y-auto scrollbar-thin px-2">
+      <nav class="space-y-1 py-4">
         <template v-for="item in menuStore.items" :key="item.id">
           <MenuLink
             :item="item"
@@ -61,8 +60,8 @@ const isExpanded = (menuId: string): boolean => {
           />
           
           <div
-            v-if="item.children && isExpanded(item.id)"
-            class="ml-4 pl-4 border-l border-gray-200 space-y-1"
+            v-if="item.children && isExpanded(item.id) && !menuStore.collapsed"
+            class="ml-4 pl-4 space-y-1 border-l border-gray-100"
           >
             <MenuLink
               v-for="child in item.children"
@@ -78,7 +77,7 @@ const isExpanded = (menuId: string): boolean => {
       </nav>
     </div>
 
-    <div class="p-4 space-y-1 border-t border-gray-200">
+    <div class="p-2 border-t border-gray-100">
       <MenuLink
         v-for="item in menuStore.bottomItems"
         :key="item.id"
@@ -99,7 +98,7 @@ const isExpanded = (menuId: string): boolean => {
 }
 
 .scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-track {
@@ -108,6 +107,6 @@ const isExpanded = (menuId: string): boolean => {
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
   background-color: rgba(156, 163, 175, 0.5);
-  border-radius: 3px;
+  border-radius: 2px;
 }
 </style>

@@ -1,28 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --primary: #646cff;
-  --secondary: #535bf2;
-}
-
 @layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
   body {
-    @apply text-gray-900 bg-gray-50;
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+
+  h1 {
+    @apply text-2xl font-bold text-gray-900;
+  }
+
+  h2 {
+    @apply text-xl font-semibold text-gray-900;
+  }
+
+  h3 {
+    @apply text-lg font-medium text-gray-900;
   }
 }
 
 @layer components {
-  .btn {
-    @apply px-4 py-2 rounded-lg font-medium transition-colors;
+  .menu-item {
+    @apply flex items-center px-3 py-2 text-sm rounded-lg transition-colors;
   }
 
-  .btn-primary {
-    @apply bg-primary text-white hover:bg-secondary;
+  .menu-item-active {
+    @apply bg-primary text-white;
+  }
+
+  .menu-item-inactive {
+    @apply text-gray-700 hover:bg-gray-50;
+  }
+
+  .menu-icon {
+    @apply h-5 w-5 min-w-[20px];
   }
 
   .card {
     @apply bg-white rounded-xl shadow-sm p-6;
+  }
+
+  .stat-card {
+    @apply relative overflow-hidden;
+  }
+
+  .stat-icon {
+    @apply absolute top-0 right-0 w-32 h-32 transform translate-x-8 -translate-y-8 opacity-10 rounded-full;
   }
 }

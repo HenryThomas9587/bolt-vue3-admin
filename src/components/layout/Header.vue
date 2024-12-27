@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { BellIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
+import { useAuthStore } from '@/stores/auth'
 
-const user = {
-  name: 'Moni Roy',
-  role: 'Admin',
-  avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=MonaRoy'
+const authStore = useAuthStore()
+const user = authStore.user
+
+const handleLogout = () => {
+  authStore.logout()
 }
 </script>
 
@@ -59,9 +61,12 @@ const user = {
               </a>
             </MenuItem>
             <MenuItem v-slot="{ active }">
-              <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+              <button
+                @click="handleLogout"
+                :class="[active ? 'bg-gray-100' : '', 'block w-full text-left px-4 py-2 text-sm text-gray-700']"
+              >
                 Sign out
-              </a>
+              </button>
             </MenuItem>
           </MenuItems>
         </transition>
