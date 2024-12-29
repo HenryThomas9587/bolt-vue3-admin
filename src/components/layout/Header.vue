@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { BellIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
+import { BellIcon, ChevronDownIcon, Bars3Icon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/auth'
+import { useMenuStore } from '@/stores/menu'
 
 const authStore = useAuthStore()
+const menuStore = useMenuStore()
 const user = authStore.user
 
 const handleLogout = () => {
@@ -13,7 +15,16 @@ const handleLogout = () => {
 
 <template>
   <header class="bg-white h-16 px-6 flex items-center justify-between border-b border-gray-200">
-    <div class="flex items-center">
+    <div class="flex items-center space-x-4">
+      <!-- Sidebar Toggle -->
+      <button
+        class="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+        @click="menuStore.toggleCollapsed"
+      >
+        <Bars3Icon class="w-6 h-6 text-gray-500" />
+      </button>
+
+      <!-- Search -->
       <div class="relative w-64">
         <input
           type="text"

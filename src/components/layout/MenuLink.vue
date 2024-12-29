@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { ChevronDownIcon } from '@heroicons/vue/24/outline'
-import type { MenuItem } from '@/types/menu'
 
 const props = defineProps<{
-  item: MenuItem
+  item: {
+    id: string
+    title: string
+    icon?: any
+    path?: string
+    children?: any[]
+  }
   isActive: boolean
   isExpanded: boolean
   collapsed: boolean
@@ -26,13 +31,13 @@ const emit = defineEmits<{
         <component
           v-if="item.icon"
           :is="item.icon"
-          class="h-5 w-5 min-w-[20px]"
+          class="h-5 w-5"
           :class="{ 'mr-3': !collapsed }"
         />
         <span v-if="!collapsed" class="flex-1 text-left">{{ item.title }}</span>
         <ChevronDownIcon
           v-if="!collapsed"
-          class="h-4 w-4 transition-transform"
+          class="h-4 w-4 transition-transform duration-200"
           :class="{ 'rotate-180': isExpanded }"
         />
       </button>
@@ -46,7 +51,7 @@ const emit = defineEmits<{
         <component
           v-if="item.icon"
           :is="item.icon"
-          class="h-5 w-5 min-w-[20px]"
+          class="h-5 w-5"
           :class="{ 'mr-3': !collapsed }"
         />
         <span v-if="!collapsed">{{ item.title }}</span>

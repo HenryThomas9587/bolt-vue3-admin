@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import type { MenuItem } from '@/types/menu'
 import { 
   HomeIcon, 
@@ -24,8 +24,7 @@ export const useMenuStore = defineStore('menu', () => {
       id: 'dashboard',
       title: 'Dashboard',
       icon: HomeIcon,
-      path: '/',
-      component: () => import('@/views/Dashboard.vue')
+      path: '/'
     },
     {
       id: 'products',
@@ -35,14 +34,12 @@ export const useMenuStore = defineStore('menu', () => {
         {
           id: 'product-list',
           title: 'Product List',
-          path: '/products',
-          component: () => import('@/views/Products.vue')
+          path: '/products'
         },
         {
           id: 'product-stock',
           title: 'Product Stock',
-          path: '/product-stock',
-          component: () => import('@/views/Products.vue')
+          path: '/product-stock'
         }
       ]
     },
@@ -50,8 +47,7 @@ export const useMenuStore = defineStore('menu', () => {
       id: 'order-lists',
       title: 'Order Lists',
       icon: ListBulletIcon,
-      path: '/order-lists',
-      component: () => import('@/views/OrderList.vue')
+      path: '/order-lists'
     },
     {
       id: 'favorites',
@@ -64,24 +60,6 @@ export const useMenuStore = defineStore('menu', () => {
       title: 'Inbox',
       icon: InboxIcon,
       path: '/inbox'
-    },
-    {
-      id: 'calendar',
-      title: 'Calendar',
-      icon: CalendarIcon,
-      path: '/calendar'
-    },
-    {
-      id: 'team',
-      title: 'Team',
-      icon: UserGroupIcon,
-      path: '/team'
-    },
-    {
-      id: 'invoice',
-      title: 'Invoice',
-      icon: DocumentTextIcon,
-      path: '/invoice'
     }
   ])
 
@@ -104,26 +82,10 @@ export const useMenuStore = defineStore('menu', () => {
     collapsed.value = !collapsed.value
   }
 
-  const flattenedRoutes = computed(() => {
-    const flatten = (items: MenuItem[]): MenuItem[] => {
-      return items.reduce((acc: MenuItem[], item) => {
-        if (item.path && item.component) {
-          acc.push(item)
-        }
-        if (item.children) {
-          acc.push(...flatten(item.children))
-        }
-        return acc
-      }, [])
-    }
-    return flatten(items.value)
-  })
-
   return {
     collapsed,
     items,
     bottomItems,
-    toggleCollapsed,
-    flattenedRoutes
+    toggleCollapsed
   }
 })
